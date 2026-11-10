@@ -1,19 +1,24 @@
 {
-  "name": "Your name",
-  "description": "A software engineer’s personal notebook. Writing, projects, and things learned along the way.",
-  "intro": "I’m a software engineer. This is a place for things I build, things I learn, and ideas I want to explore.",
-  "about": "This notebook is a small home for my work and writing on the web. I’ll share notes on software, side projects, and the occasional detour along the way.",
+  "name": "Ashwat Kumar Singh",
+  "description": "Ashwat Kumar Singh — DevOps and Platform Engineer at Amadeus Labs. Kubernetes, GitOps, observability, and open source.",
+  "intro": "I’m Ashwat, a DevOps and Platform Engineer at Amadeus Labs in Bengaluru. I work on Kubernetes, GitOps, and observability, making the path from code push to deployment faster and more reliable.",
+  "about": "I own development platform reliability, from CI/CD pipelines and Artifactory storage to repository migrations and developer tooling. I enjoy reducing developer friction through reliable infrastructure, secure runbooks, and practical automation. Outside my work at Amadeus, I contribute to Lima VM and explore container internals and self-hosted Kubernetes.",
   "links": {
-    "github": "",
-    "linkedin": "",
-    "email": ""
+    "email": "ashwatpas@gmail.com",
+    "phone": "+91 7759968585",
+    "linkedin": "https://linkedin.com/in/ashwat-singh",
+    "github": "https://github.com/ashwat287"
   },
   "projects": [
     {
-      "name": "This little website",
-      "description": "A personal notebook inspired by the simplicity of the early web. Static pages, Markdown posts, and a little CSS.",
-      "url": "",
-      "label": "Source code"
+      "name": "Minicontainer",
+      "description": "A minimal container runtime in Go implementing Linux namespaces and cgroups v2. An exploration of the isolation and resource controls underneath containers.",
+      "url": ""
+    },
+    {
+      "name": "Homelab Kubernetes Platform",
+      "description": "A self-hosted k3s cluster with ArgoCD GitOps, Prometheus and Grafana monitoring, and Traefik ingress. Personal services deployed declaratively from a Git repository.",
+      "url": ""
     }
   ],
   "posts": [
@@ -30,6 +35,66 @@
       "date": "2026-11-09",
       "excerpt": "Some notes on building a personal site with fewer moving parts. A second sample post, ready to replace with your own writing.",
       "sample": true
+    }
+  ],
+  "role": "DevOps & Platform Engineer",
+  "education": {
+    "institution": "Indian Institute of Technology (BHU), Varanasi",
+    "degree": "Bachelor of Technology",
+    "dates": "November 2020 – May 2024",
+    "result": "CPI: 8.55/10.0 · GPA: 3.4/4.0"
+  },
+  "work": [
+    {
+      "organization": "Amadeus Labs",
+      "location": "Bengaluru, India",
+      "role": "Software Development Engineer 2 · Platform / DevOps",
+      "team": "Altéa Reservation Desktop",
+      "dates": "August 2024 – Present",
+      "highlights": [
+        {
+          "title": "GitOps & deployments",
+          "text": "Implemented an ArgoCD rollout for Dev/UAT, replacing Jenkins deployment jobs with declarative manifests and cutting mean deployment time from 30 minutes to under 5 minutes."
+        },
+        {
+          "title": "Build performance",
+          "text": "Halved main-repository build times from 60 to 30 minutes with Develocity Build Cache and Test Distribution, saving 200+ engineering hours per month across 30+ developers."
+        },
+        {
+          "title": "Logging modernization",
+          "text": "Evaluated a migration from Logstash to Fluent Bit through a proof of concept: analyzed logs and resource metrics, tested multiple configurations, and documented findings to guide migration planning."
+        },
+        {
+          "title": "Security hardening",
+          "text": "Remediated 50+ high and critical CVEs identified by Black Duck and Prisma through dependency upgrades and code fixes, bringing the backlog close to zero."
+        },
+        {
+          "title": "CI quality",
+          "text": "Hardened CI across 30+ repositories with required checks, reproducible builds, and signed artifacts, standardizing release pipelines across the organization."
+        },
+        {
+          "title": "Artifactory management",
+          "text": "Diagnosed an ineffective cleanup policy, tested retention parameters with JFrog CLI dry runs, and revised automated cleanup, reducing repository usage from 96% to 30%."
+        },
+        {
+          "title": "Repository migration",
+          "text": "Managed the migration of 70+ repositories from Bitbucket to GitHub. Remediated live and historical secrets, preserved workflows and permissions, validated pipeline integrations, and wrote migration runbooks and onboarding documentation."
+        },
+        {
+          "title": "Prompt-Lint",
+          "text": "Built a GitHub Action treating LLM prompts as code. Four layers of static and LLM analysis block secret leaks, PII, and prompt-injection patterns at pull-request time in under 30 seconds."
+        }
+      ]
+    }
+  ],
+  "openSource": [
+    {
+      "name": "Lima VM",
+      "role": "Open Source Contributor",
+      "dates": "August 2025 – Present",
+      "description": "A WSL2-style Linux VM runtime. Contributed seven merged pull requests improving guest-agent networking, storage robustness, QEMU compatibility, and CLI usability.",
+      "url": "https://github.com/lima-vm/lima",
+      "contributionsUrl": "https://github.com/lima-vm/lima/pulls?q=is%3Apr+is%3Amerged+author%3Aashwat287"
     }
   ]
 }
