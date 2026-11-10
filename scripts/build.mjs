@@ -1,10 +1,8 @@
 import { readFile, mkdir, writeFile, cp, rm } from 'node:fs/promises';
-import { marked } from 'marked';
 
 const site = JSON.parse(await readFile(new URL('../content/site.json', import.meta.url), 'utf8'));
 const root = new URL('../', import.meta.url);
 const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
-const date = value => new Date(`${value}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 const href = value => {
   if (!/^https?:\/\//.test(value)) throw new Error(`Use an absolute HTTP(S) URL: ${value}`);
   return escape(new URL(value).href);
@@ -30,14 +28,6 @@ const links = Object.entries(site.links).filter(([, value]) => value).map(([key,
   if (!icons[key]) throw new Error(`Unknown contact type: ${key}`);
   return `<a href="${url}" aria-label="${labels[key]}: ${escape(value)}" title="${labels[key]}: ${escape(value)}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[key]}</svg></a>`;
 }).join('');
-const posts = [...site.posts].sort((a, b) => b.date.localeCompare(a.date));
-const slugs = new Set();
-for (const post of posts) {
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(post.slug) || slugs.has(post.slug)) throw new Error('Post slugs must be unique lowercase words separated by hyphens');
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(post.date) || !Number.isFinite(Date.parse(post.date)) || new Date(post.date).toISOString().slice(0, 10) !== post.date) throw new Error(`Invalid date for ${post.slug}`);
-  slugs.add(post.slug);
-}
-const metadata = post => `<p class="meta"><time datetime="${post.date}">${date(post.date)}</time>${post.sample ? ' &middot; Sample post' : ''}</p>`;
 const photos = [...(site.portrait.src ? [site.portrait] : []), ...site.lifePhotos];
 for (const photo of photos) {
   if (!/^\/images\/(?:[\w-]+\/)*[\w-]+\.(?:jpe?g|png|webp|avif)$/i.test(photo.src)) throw new Error('Photos must use a local /images/ path and JPG, PNG, WebP, or AVIF format');
@@ -63,7 +53,7 @@ const page = (title, description, body, active = null) => `<!doctype html>
 <a class="wordmark" href="/">&lt;${escape(site.name)}&gt;</a>
 <div class="contact" role="group" aria-label="Contact and profiles">${links}</div>
 </div>
-<nav aria-label="Main navigation">${[['', 'About'], ['writing', 'Writing'], ['projects', 'Projects'], ['work', 'Work experience'], ['open-source', 'Open source'], ['education', 'Education']].map(([slug, label]) => `<a href="/${slug ? `${slug}/` : ''}"${active === slug ? ' aria-current="page"' : ''}>${label}</a>`).join('')}</nav>
+<nav aria-label="Main navigation">${[['', 'About'], ['projects', 'Projects'], ['work', 'Work experience'], ['open-source', 'Open source'], ['education', 'Education']].map(([slug, label]) => `<a href="/${slug ? `${slug}/` : ''}"${active === slug ? ' aria-current="page"' : ''}>${label}</a>`).join('')}</nav>
 </header>
 <main id="main">${body}</main>
 <footer><span>${escape(site.name)} &middot; A personal notebook</span><a href="#top">Back to top ↑</a></footer>
@@ -85,22 +75,14 @@ ${site.library.sample ? '<p class="library-note">An example shelf for now. I’l
 <div class="library-columns"><section class="reading-now" aria-labelledby="reading-heading"><p class="eyebrow">On my bedside table</p><h3 id="reading-heading">Currently reading</h3>${site.library.currentlyReading.length ? bookList(site.library.currentlyReading) : '<p class="empty-note">My current read will appear here.</p>'}</section>
 <section class="books-read" aria-labelledby="read-heading"><p class="eyebrow">On the shelf</p><h3 id="read-heading">Books I’ve read</h3>${site.library.read.length ? bookList(site.library.read) : '<p class="empty-note">Books I’ve read and favourite lines from them will appear here.</p>'}</section></div></section>`;
 await writeFile(new URL('dist/index.html', root), page('About me', site.description, home, ''));
-const writing = `<div class="article"><h1>Writing</h1>
-${posts.length ? posts.map(post => `<article class="post-preview"><h2><a href="/posts/${post.slug}/">${escape(post.title)}</a></h2>${metadata(post)}<p>${escape(post.excerpt)}</p><a class="read-more" href="/posts/${post.slug}/" aria-label="Read ${escape(post.title)}">Read the full post →</a></article>`).join('\n') : '<p class="muted">Nothing published yet. Notes will find their way here soon.</p>'}</div>`;
 const projects = `<div class="article"><h1>Projects</h1>
 ${site.projects.map(project => `<article class="project"><h2>${escape(project.name)}</h2><p>${escape(project.description)}</p>${project.url ? `<a class="read-more" href="${href(project.url)}">${escape(project.label || 'View project')} →</a>` : ''}</article>`).join('\n')}</div>`;
 const education = `<div class="article"><h1>Education</h1><section class="education"><h2>${escape(site.education.institution)}</h2><p>${escape(site.education.degree)}</p><p class="meta">${escape(site.education.dates)}</p><p>${escape(site.education.result)}</p></section></div>`;
 const work = `<div class="article"><h1>Work experience</h1>${site.work.map(job => `<section class="experience"><h2>${escape(job.organization)}</h2><p class="position">${escape(job.role)}<br>${escape(job.team)}</p><p class="meta">${escape(job.dates)} · ${escape(job.location)}</p><dl class="highlights">${job.highlights.map(item => `<dt>${escape(item.title)}</dt><dd>${escape(item.text)}</dd>`).join('')}</dl></section>`).join('')}</div>`;
 const openSource = `<div class="article"><h1>Open source</h1>${site.openSource.map(project => `<section class="experience"><h2><a href="${href(project.url)}">${escape(project.name)}</a></h2><p class="position">${escape(project.role)}</p><p class="meta">${escape(project.dates)}</p><p>${escape(project.description)}</p><a class="read-more" href="${href(project.contributionsUrl)}">View merged contributions →</a></section>`).join('')}</div>`;
-for (const [slug, title, body] of [['writing', 'Writing', writing], ['projects', 'Projects', projects], ['work', 'Work experience', work], ['open-source', 'Open source', openSource], ['education', 'Education', education]]) {
+for (const [slug, title, body] of [['projects', 'Projects', projects], ['work', 'Work experience', work], ['open-source', 'Open source', openSource], ['education', 'Education', education]]) {
   await mkdir(new URL(`dist/${slug}/`, root), { recursive: true });
   await writeFile(new URL(`dist/${slug}/index.html`, root), page(title, `${title} — ${site.name}`, body, slug));
 }
-for (const post of posts) {
-  const markdown = await readFile(new URL(`content/posts/${post.slug}.md`, root), 'utf8');
-  const body = `<article class="article"><a class="back" href="/writing/">← All writing</a><h1>${escape(post.title)}</h1>${metadata(post)}${post.sample ? '<p class="sample-note">This is sample writing included with the website. Replace it with your own post.</p>' : ''}${marked.parse(markdown)}</article>`;
-  await mkdir(new URL(`dist/posts/${post.slug}/`, root), { recursive: true });
-  await writeFile(new URL(`dist/posts/${post.slug}/index.html`, root), page(post.title, post.excerpt, body, 'writing'));
-}
 await writeFile(new URL('dist/404.html', root), page('Page not found', 'This page could not be found.', '<article class="article"><h1>Page not found.</h1><p>This page may have moved, or the address may be incorrect.</p><a href="/">← Return to the notebook</a></article>'));
-console.log(`Built home, writing, projects, work, open source, education, ${posts.length} posts, and 404 page in dist/.`);
+console.log(`Built home, projects, work, open source, education, and 404 page in dist/.`);

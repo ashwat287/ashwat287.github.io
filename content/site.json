@@ -21,22 +21,6 @@
       "url": ""
     }
   ],
-  "posts": [
-    {
-      "slug": "a-place-for-small-things",
-      "title": "A place for small things",
-      "date": "2026-11-10",
-      "excerpt": "A small corner of the internet for code, notes, and ideas. A sample post to show how this notebook works.",
-      "sample": true
-    },
-    {
-      "slug": "keeping-it-simple",
-      "title": "Keeping it simple",
-      "date": "2026-11-09",
-      "excerpt": "Some notes on building a personal site with fewer moving parts. A second sample post, ready to replace with your own writing.",
-      "sample": true
-    }
-  ],
   "role": "DevOps & Platform Engineer",
   "education": {
     "institution": "Indian Institute of Technology (BHU), Varanasi",

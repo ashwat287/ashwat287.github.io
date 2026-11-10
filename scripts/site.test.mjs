@@ -72,13 +72,10 @@ test('home has a paragraph bio, photo spaces, and an organized sample library', 
   assert.match(home, /<blockquote><p>“You see, but you do not observe.”<\/p><\/blockquote>/);
   assert.doesNotMatch(home, /id="interests-heading"|class="experience"|class="project"/);
 });
-test('Markdown renders into readable article HTML and samples are labeled', async () => {
-  const html = await readFile(join(output, 'posts/keeping-it-simple/index.html'), 'utf8');
-  assert.match(html, /<h2>A small publishing routine<\/h2>/);
-  assert.match(html, /<pre><code class="language-sh">/);
-  assert.match(html, /This is sample writing/);
-  const writing = await readFile(join(output, 'writing/index.html'), 'utf8');
-  assert.ok(writing.indexOf('a-place-for-small-things') < writing.indexOf('keeping-it-simple'));
-  assert.match(writing, /href="\/writing\/" aria-current="page"/);
-  assert.match(html, /href="\/writing\/">← All writing/);
+test('writing navigation and article output are removed', async () => {
+  for (const file of (await files(output)).filter(file => file.endsWith('.html'))) {
+    assert.doesNotMatch(await readFile(file, 'utf8'), /href="\/(writing|posts)\/|>Writing<|Sample post/);
+  }
+  await assert.rejects(stat(join(output, 'writing')), { code: 'ENOENT' });
+  await assert.rejects(stat(join(output, 'posts')), { code: 'ENOENT' });
 });
