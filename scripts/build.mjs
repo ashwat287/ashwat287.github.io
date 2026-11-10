@@ -35,6 +35,7 @@ for (const photo of photos) {
   await readFile(new URL(`public${photo.src}`, root));
 }
 const bookList = books => `<ul class="book-list">${books.map(book => `<li class="book"><h4>${escape(book.title)}</h4><p class="book-author">${escape(book.author)}</p>${book.favouriteLine ? `<blockquote><p>“${escape(book.favouriteLine)}”</p></blockquote>${book.quoteSource ? `<a class="quote-source" href="${href(book.quoteSource)}">Read the book</a>` : ''}` : ''}</li>`).join('')}</ul>`;
+const photoTiles = photos => photos.map(photo => `<figure><div class="gallery-photo${photo.rotate ? ' rotate-photo' : ''}"><img src="${escape(photo.src)}" alt="${escape(photo.alt)}" loading="lazy" decoding="async" width="${Number(photo.width)}" height="${Number(photo.height)}"></div>${photo.caption ? `<figcaption>${escape(photo.caption)}</figcaption>` : ''}</figure>`).join('');
 const page = (title, description, body, active = null) => `<!doctype html>
 <html lang="en">
 <head>
@@ -69,7 +70,8 @@ const home = `
 <figure class="portrait">${site.portrait.src ? `<img src="${escape(site.portrait.src)}" alt="${escape(site.portrait.alt)}" width="800" height="800" fetchpriority="high">` : '<div class="photo-placeholder"><span class="placeholder-mark" aria-hidden="true">A.</span><span>Portrait coming soon</span></div>'}</figure>
 </section>
 <section class="life-section" aria-labelledby="life-heading"><h2 class="section-heading" id="life-heading">A glimpse into my life</h2>
-<div class="life-gallery">${site.lifePhotos.length ? site.lifePhotos.map(photo => `<figure><a class="gallery-photo${photo.rotate ? ' rotate-photo' : ''}" href="${escape(photo.src)}"><img src="${escape(photo.src)}" alt="${escape(photo.alt)}" loading="lazy" decoding="async" width="${Number(photo.width)}" height="${Number(photo.height)}"></a>${photo.caption ? `<figcaption>${escape(photo.caption)}</figcaption>` : ''}</figure>`).join('') : ['01', '02', '03'].map(number => `<div class="photo-placeholder life-placeholder"><span class="placeholder-number" aria-hidden="true">${number}</span><span>Photo coming soon</span></div>`).join('')}</div></section>
+<div class="life-gallery">${site.lifePhotos.length ? photoTiles(site.lifePhotos.slice(0, 3)) : ['01', '02', '03'].map(number => `<div class="photo-placeholder life-placeholder"><span class="placeholder-number" aria-hidden="true">${number}</span><span>Photo coming soon</span></div>`).join('')}</div>
+${site.lifePhotos.length > 3 ? `<details class="gallery-expansion"><summary><span class="when-closed">Show all ${site.lifePhotos.length} photos</span><span class="when-open">Show fewer photos</span></summary><div class="life-gallery">${photoTiles(site.lifePhotos.slice(3))}</div></details>` : ''}</section>
 <section class="library-section" aria-labelledby="library-heading"><h2 class="section-heading" id="library-heading">My little library</h2>
 ${site.library.sample ? '<p class="library-note">An example shelf for now. I’ll add my own books and favourite lines soon.</p>' : ''}
 <div class="library-columns"><section class="reading-now" aria-labelledby="reading-heading"><p class="eyebrow">On my bedside table</p><h3 id="reading-heading">Currently reading</h3>${site.library.currentlyReading.length ? bookList(site.library.currentlyReading) : '<p class="empty-note">My current read will appear here.</p>'}</section>
