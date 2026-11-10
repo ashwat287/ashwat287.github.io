@@ -102,8 +102,8 @@ function renderPhoto(photo) {
 function renderPage(title, description, body, activePage = null) {
   const navigation = [
     ['', 'About'],
-    ['projects', 'Projects'],
     ['work', 'Work experience'],
+    ['projects', 'Projects'],
     ['open-source', 'Open source'],
     ['education', 'Education']
   ];

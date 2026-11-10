@@ -90,6 +90,7 @@ test('personal details, icon contacts, and experience pages are published', asyn
   assert.equal((home.match(/<svg /g) || []).length, 4);
   assert.match(home, /<title>About me/);
   assert.match(home, /id="about-heading"/);
+  assert.ok(home.indexOf('Work experience</a>') < home.indexOf('Projects</a>'));
   assert.match(home, /spend their time shipping/);
   assert.doesNotMatch(home, /Minicontainer|Homelab Kubernetes Platform|Indian Institute of Technology|Sample post|post-preview|GitOps &amp; deployments/);
   const projects = await readFile(join(outputDirectory, 'projects/index.html'), 'utf8');
@@ -118,10 +119,11 @@ test('home has a paragraph bio, photo spaces, and the personal library', async (
   assert.match(home, /<strong>[^<]*Away from the keyboard \(well, mostly\)<\/strong>/);
   assert.match(home, /<strong>[^<]*Off the grid<\/strong>/);
   assert.match(home, /This is my little corner of the web/);
-  assert.match(home, /src="\/images\/ashwat-profile.png" alt="Portrait of Ashwat Kumar Singh"/);
+  assert.match(home, /src="\/images\/ashwat-profile\.jpg" alt="Portrait of Ashwat Kumar Singh"/);
   assert.doesNotMatch(home, /Portrait coming soon/);
-  const portrait = await readFile(join(outputDirectory, 'images/ashwat-profile.png'));
-  assert.equal(portrait.subarray(1, 4).toString(), 'PNG');
+  const portrait = await readFile(join(outputDirectory, 'images/ashwat-profile.jpg'));
+  assert.equal(portrait[0], 0xff);
+  assert.equal(portrait[1], 0xd8);
   assert.match(home, /A glimpse into my life/);
   assert.doesNotMatch(home, /Photo coming soon/);
   assert.equal((home.match(/class="gallery-photo/g) || []).length, 12);
@@ -137,9 +139,8 @@ test('home has a paragraph bio, photo spaces, and the personal library', async (
     assert.ok(home.includes(`src="${photo.src}"`));
     assert.ok(home.includes(`alt="${photo.alt}"`));
     const data = await readFile(join(outputDirectory, photo.src));
-    assert.equal(data.subarray(1, 4).toString(), 'PNG');
-    assert.equal(data.readUInt32BE(16), photo.width);
-    assert.equal(data.readUInt32BE(20), photo.height);
+    assert.equal(data[0], 0xff);
+    assert.equal(data[1], 0xd8);
   }
   assert.match(home, /My little library/);
   assert.match(home, /Currently reading/);

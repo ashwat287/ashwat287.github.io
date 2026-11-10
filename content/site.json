@@ -97,79 +97,79 @@
     }
   ],
   "portrait": {
-    "src": "/images/ashwat-profile.png",
+    "src": "/images/ashwat-profile.jpg",
     "alt": "Portrait of Ashwat Kumar Singh"
   },
   "lifePhotos": [
     {
-      "src": "/images/mountains-and-blossoms.png",
+      "src": "/images/mountains-and-blossoms.jpg",
       "alt": "Pink blossoms above a forest and snow-covered mountain ridge",
       "width": 870,
       "height": 1420,
       "rotate": true
     },
     {
-      "src": "/images/umbrellas-at-dusk.png",
+      "src": "/images/umbrellas-at-dusk.jpg",
       "alt": "Colourful umbrellas suspended above domes and minarets at dusk",
       "width": 854,
       "height": 1352
     },
     {
-      "src": "/images/rainy-courtyard.png",
+      "src": "/images/rainy-courtyard.jpg",
       "alt": "A rain-soaked path through a green courtyard",
       "width": 882,
       "height": 1356
     },
     {
-      "src": "/images/banaras-at-night.png",
+      "src": "/images/banaras-at-night.jpg",
       "alt": "An aerial view of Banaras illuminated at night",
       "width": 878,
       "height": 1284
     },
     {
-      "src": "/images/riverside-evening.png",
+      "src": "/images/riverside-evening.jpg",
       "alt": "Boats beside riverside ghats under an evening sky",
       "width": 872,
       "height": 1366
     },
     {
-      "src": "/images/kayaks-by-the-water.png",
+      "src": "/images/kayaks-by-the-water.jpg",
       "alt": "Colourful kayaks beside a palm-lined river",
       "width": 774,
       "height": 1252
     },
     {
-      "src": "/images/surfing-day.png",
+      "src": "/images/surfing-day.jpg",
       "alt": "A surfer holding a board on a sunny palm-lined beach",
       "width": 834,
       "height": 1304
     },
     {
-      "src": "/images/waterfall-hike.png",
+      "src": "/images/waterfall-hike.jpg",
       "alt": "A hiker standing beside a waterfall between tall rocks",
       "width": 1072,
       "height": 1420
     },
     {
-      "src": "/images/above-the-clouds.png",
+      "src": "/images/above-the-clouds.jpg",
       "alt": "An orange horizon above a sea of clouds and mountain silhouettes",
       "width": 1068,
       "height": 1118
     },
     {
-      "src": "/images/football-evening.png",
+      "src": "/images/football-evening.jpg",
       "alt": "Ashwat wearing a number 3 jersey on a football field at night",
       "width": 1134,
       "height": 1506
     },
     {
-      "src": "/images/motorcycle-by-the-river.png",
+      "src": "/images/motorcycle-by-the-river.jpg",
       "alt": "A rider holding a helmet beside a motorcycle by a green riverbank",
       "width": 1090,
       "height": 1414
     },
     {
-      "src": "/images/waves-on-the-shore.png",
+      "src": "/images/waves-on-the-shore.jpg",
       "alt": "Gentle waves rolling towards a sandy shoreline under a blue sky",
       "width": 1030,
       "height": 1240
