@@ -1,6 +1,6 @@
 # Personal notebook
 
-A small static personal website inspired by antirez.com. Serif headings, monospace text, a responsive reading column, and no JavaScript in the browser.
+A small static personal website inspired by antirez.com. Serif headings, monospace text, a responsive reading column, and a small browser script to shuffle the gallery on each page visit.
 
 ## Run locally
 
@@ -26,7 +26,7 @@ Styles live in `public/style.css`. Public files are copied to the output unchang
 
 ## Photos and books
 
-Put photos in `public/images/` using filenames such as `portrait.jpg` or `weekend-walk.webp`. Set `portrait.src` to `/images/portrait.jpg` and give it descriptive `alt` text. Add gallery entries to `lifePhotos` with `src`, `alt`, image pixel `width` and `height`, and an optional `caption`. Set `rotate` to `true` for a sideways photo that should display rotated 90° counterclockwise. Gallery images use portrait crops in a compact collage. Three photos appear initially; a native expand/collapse control reveals the rest. Photos are not clickable. JPG, PNG, WebP, and AVIF are supported; missing image files stop the build. Empty photos use clearly labeled placeholders.
+Put photos in `public/images/` using filenames such as `portrait.jpg` or `weekend-walk.webp`. Set `portrait.src` to `/images/portrait.jpg` and give it descriptive `alt` text. Add gallery entries to `lifePhotos` with `src`, `alt`, image pixel `width` and `height`, and an optional `caption`. Set `rotate` to `true` for a sideways photo that should display rotated 90° counterclockwise. Gallery images use portrait crops in a compact collage. Three photos appear initially; a native expand/collapse control reveals the rest. Photos are not clickable. Their order is randomized on each visit, including when returning with the browser Back button. With JavaScript disabled, the original order is used. JPG, PNG, WebP, and AVIF are supported; missing image files stop the build. Empty photos use clearly labeled placeholders.
 
 Edit `library.currentlyReading` and `library.read` with entries containing `title`, `author`, and optional `favouriteLine` and `quoteSource` (a full HTTP(S) URL). Set `library.sample` to `false` after replacing the example books with your own. The initial example shelf is clearly labeled and does not represent your reading history.
 

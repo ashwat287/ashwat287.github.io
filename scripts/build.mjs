@@ -58,6 +58,7 @@ const page = (title, description, body, active = null) => `<!doctype html>
 </header>
 <main id="main">${body}</main>
 <footer><span>${escape(site.name)} &middot; A personal notebook</span><a href="#top">Back to top ↑</a></footer>
+${active === '' ? '<script src="/gallery.js" defer></script>' : ''}
 </body>
 </html>`;
 

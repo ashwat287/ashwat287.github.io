@@ -2,20 +2,26 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
+import { runInNewContext } from 'node:vm';
 
 const output = resolve('dist');
 async function files(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   return (await Promise.all(entries.map(entry => entry.isDirectory() ? files(join(directory, entry.name)) : join(directory, entry.name)))).flat();
 }
-test('generated pages have valid internal links, anchors, and no browser scripts', async () => {
+test('generated pages have valid internal links, anchors, and gallery script', async () => {
   const pages = (await files(output)).filter(file => file.endsWith('.html'));
   assert.ok(pages.length >= 2);
   for (const file of pages) {
     const html = await readFile(file, 'utf8');
     assert.match(html, /<html lang="en">/);
     assert.match(html, /<main id="main">/);
-    assert.doesNotMatch(html, /<script\b/i);
+    if (file === join(output, 'index.html')) {
+      assert.match(html, /<script src="\/gallery.js" defer><\/script>/);
+      await stat(join(output, 'gallery.js'));
+    } else {
+      assert.doesNotMatch(html, /<script\b/i);
+    }
     for (const [, raw] of html.matchAll(/href="([^"]+)"/g)) {
       if (/^(https?:|mailto:|tel:)/.test(raw)) continue;
       const [path, fragment] = raw.split('#');
@@ -24,6 +30,34 @@ test('generated pages have valid internal links, anchors, and no browser scripts
       await stat(target);
       if (fragment) assert.ok((await readFile(target, 'utf8')).includes(`id="${fragment}"`), `${file}: missing ${raw}`);
     }
+  }
+});
+test('each page visit reshuffles all photos while keeping a three-photo preview', async () => {
+  const photos = Array.from({ length: 10 }, (_, id) => ({ id }));
+  const galleries = [photos.slice(0, 3), photos.slice(3)].map(children => ({
+    children,
+    append(photo) {
+      for (const gallery of galleries) {
+        const index = gallery.children.indexOf(photo);
+        if (index !== -1) gallery.children.splice(index, 1);
+      }
+      this.children.push(photo);
+    }
+  }));
+  let onVisit;
+  runInNewContext(await readFile(join(output, 'gallery.js'), 'utf8'), {
+    window: { addEventListener(event, callback) { assert.equal(event, 'pageshow'); onVisit = callback; } },
+    document: { querySelectorAll: () => galleries },
+    Math: { floor: Math.floor, random: () => 0 }
+  });
+  for (let visit = 0; visit < 2; visit++) {
+    const before = galleries.flatMap(gallery => gallery.children);
+    onVisit();
+    const after = galleries.flatMap(gallery => gallery.children);
+    assert.notDeepEqual(after, before);
+    assert.equal(galleries[0].children.length, 3);
+    assert.equal(galleries[1].children.length, 7);
+    assert.deepEqual(after.map(photo => photo.id).sort((a, b) => a - b), photos.map(photo => photo.id));
   }
 });
 test('personal details, icon contacts, and experience pages are published', async () => {
