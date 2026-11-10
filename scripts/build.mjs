@@ -38,6 +38,13 @@ for (const post of posts) {
   slugs.add(post.slug);
 }
 const metadata = post => `<p class="meta"><time datetime="${post.date}">${date(post.date)}</time>${post.sample ? ' &middot; Sample post' : ''}</p>`;
+const photos = [...(site.portrait.src ? [site.portrait] : []), ...site.lifePhotos];
+for (const photo of photos) {
+  if (!/^\/images\/(?:[\w-]+\/)*[\w-]+\.(?:jpe?g|png|webp|avif)$/i.test(photo.src)) throw new Error('Photos must use a local /images/ path and JPG, PNG, WebP, or AVIF format');
+  if (!photo.alt?.trim()) throw new Error('Photos need descriptive alt text');
+  await readFile(new URL(`public${photo.src}`, root));
+}
+const bookList = books => `<ul class="book-list">${books.map(book => `<li class="book"><h4>${escape(book.title)}</h4><p class="book-author">${escape(book.author)}</p>${book.favouriteLine ? `<blockquote><p>“${escape(book.favouriteLine)}”</p></blockquote>${book.quoteSource ? `<a class="quote-source" href="${href(book.quoteSource)}">Read the book</a>` : ''}` : ''}</li>`).join('')}</ul>`;
 const page = (title, description, body, active = null) => `<!doctype html>
 <html lang="en">
 <head>
@@ -67,9 +74,16 @@ await rm(new URL('dist/', root), { recursive: true, force: true });
 await mkdir(new URL('dist/', root), { recursive: true });
 await cp(new URL('public/', root), new URL('dist/', root), { recursive: true });
 const home = `
-<div class="intro"><h1 class="eyebrow">${escape(site.role)}</h1><p>${escape(site.intro)}</p></div>
-<section aria-labelledby="about-heading"><h2 class="section-heading" id="about-heading">A little about me</h2><p>${escape(site.about)}</p></section>
-<section aria-labelledby="interests-heading"><h2 class="section-heading" id="interests-heading">Interests</h2><p>${escape(site.interests)}</p></section>`;
+<section class="about-intro" aria-labelledby="about-heading">
+<div><p class="eyebrow">${escape(site.role)}</p><h1 id="about-heading">A little about me</h1><p class="bio">${escape(site.bio)}</p></div>
+<figure class="portrait">${site.portrait.src ? `<img src="${escape(site.portrait.src)}" alt="${escape(site.portrait.alt)}" width="400" height="500" fetchpriority="high">` : '<div class="photo-placeholder"><span class="placeholder-mark" aria-hidden="true">A.</span><span>Portrait coming soon</span></div>'}</figure>
+</section>
+<section class="life-section" aria-labelledby="life-heading"><h2 class="section-heading" id="life-heading">A glimpse into my life</h2>
+<div class="life-gallery">${site.lifePhotos.length ? site.lifePhotos.map(photo => `<figure><img src="${escape(photo.src)}" alt="${escape(photo.alt)}" loading="lazy" width="600" height="450">${photo.caption ? `<figcaption>${escape(photo.caption)}</figcaption>` : ''}</figure>`).join('') : ['01', '02', '03'].map(number => `<div class="photo-placeholder life-placeholder"><span class="placeholder-number" aria-hidden="true">${number}</span><span>Photo coming soon</span></div>`).join('')}</div></section>
+<section class="library-section" aria-labelledby="library-heading"><h2 class="section-heading" id="library-heading">My little library</h2>
+${site.library.sample ? '<p class="library-note">An example shelf for now. I’ll add my own books and favourite lines soon.</p>' : ''}
+<div class="library-columns"><section class="reading-now" aria-labelledby="reading-heading"><p class="eyebrow">On my bedside table</p><h3 id="reading-heading">Currently reading</h3>${site.library.currentlyReading.length ? bookList(site.library.currentlyReading) : '<p class="empty-note">My current read will appear here.</p>'}</section>
+<section class="books-read" aria-labelledby="read-heading"><p class="eyebrow">On the shelf</p><h3 id="read-heading">Books I’ve read</h3>${site.library.read.length ? bookList(site.library.read) : '<p class="empty-note">Books I’ve read and favourite lines from them will appear here.</p>'}</section></div></section>`;
 await writeFile(new URL('dist/index.html', root), page('About me', site.description, home, ''));
 const writing = `<div class="article"><h1>Writing</h1>
 ${posts.length ? posts.map(post => `<article class="post-preview"><h2><a href="/posts/${post.slug}/">${escape(post.title)}</a></h2>${metadata(post)}<p>${escape(post.excerpt)}</p><a class="read-more" href="/posts/${post.slug}/" aria-label="Read ${escape(post.title)}">Read the full post →</a></article>`).join('\n') : '<p class="muted">Nothing published yet. Notes will find their way here soon.</p>'}</div>`;

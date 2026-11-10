@@ -97,5 +97,34 @@
       "contributionsUrl": "https://github.com/lima-vm/lima/pulls?q=is%3Apr+is%3Amerged+author%3Aashwat287"
     }
   ],
-  "interests": "I’m interested in container internals, self-hosted Kubernetes, and open source. I like exploring how infrastructure works underneath, and finding practical ways to make development platforms simpler and more reliable."
+  "interests": "I’m interested in container internals, self-hosted Kubernetes, and open source. I like exploring how infrastructure works underneath, and finding practical ways to make development platforms simpler and more reliable.",
+  "bio": "I’m Ashwat, a DevOps and Platform Engineer based in Bengaluru. At Amadeus Labs, I work on making development platforms faster, simpler, and more reliable. Away from work, I contribute to open source and explore container internals and self-hosted Kubernetes. This is my little corner of the web for the things I build, the moments I collect, and the books I read.",
+  "portrait": {
+    "src": "",
+    "alt": "Ashwat Kumar Singh"
+  },
+  "lifePhotos": [],
+  "library": {
+    "sample": true,
+    "currentlyReading": [
+      {
+        "title": "Frankenstein",
+        "author": "Mary Shelley"
+      }
+    ],
+    "read": [
+      {
+        "title": "Alice’s Adventures in Wonderland",
+        "author": "Lewis Carroll",
+        "favouriteLine": "we’re all mad here. I’m mad. You’re mad.",
+        "quoteSource": "https://www.gutenberg.org/files/11/11-h/11-h.htm"
+      },
+      {
+        "title": "The Adventures of Sherlock Holmes",
+        "author": "Arthur Conan Doyle",
+        "favouriteLine": "You see, but you do not observe.",
+        "quoteSource": "https://www.gutenberg.org/files/1661/1661-h/1661-h.htm"
+      }
+    ]
+  }
 }

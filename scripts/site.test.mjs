@@ -35,8 +35,8 @@ test('personal details, icon contacts, and experience pages are published', asyn
   assert.match(home, /aria-label="LinkedIn:/);
   assert.equal((home.match(/<svg /g) || []).length, 4);
   assert.match(home, /<title>About me/);
-  assert.match(home, /id="interests-heading"/);
-  assert.match(home, /container internals, self-hosted Kubernetes/);
+  assert.match(home, /id="about-heading"/);
+  assert.match(home, /explore container internals and self-hosted Kubernetes/);
   assert.doesNotMatch(home, /Minicontainer|Homelab Kubernetes Platform|Indian Institute of Technology|Sample post|post-preview|GitOps &amp; deployments/);
   const projects = await readFile(join(output, 'projects/index.html'), 'utf8');
   assert.match(projects, /Minicontainer/);
@@ -57,6 +57,20 @@ test('personal details, icon contacts, and experience pages are published', asyn
   assert.match(openSource, /Lima VM/);
   assert.match(openSource, /seven merged pull requests/);
   assert.match(openSource, /author%3Aashwat287/);
+});
+test('home has a paragraph bio, photo spaces, and an organized sample library', async () => {
+  const home = await readFile(join(output, 'index.html'), 'utf8');
+  assert.match(home, /<p class="bio">I’m Ashwat/);
+  assert.match(home, /Portrait coming soon/);
+  assert.match(home, /A glimpse into my life/);
+  assert.equal((home.match(/Photo coming soon/g) || []).length, 3);
+  assert.match(home, /My little library/);
+  assert.match(home, /Currently reading/);
+  assert.match(home, /Books I’ve read/);
+  assert.match(home, /An example shelf for now/);
+  assert.match(home, /Frankenstein/);
+  assert.match(home, /<blockquote><p>“You see, but you do not observe.”<\/p><\/blockquote>/);
+  assert.doesNotMatch(home, /id="interests-heading"|class="experience"|class="project"/);
 });
 test('Markdown renders into readable article HTML and samples are labeled', async () => {
   const html = await readFile(join(output, 'posts/keeping-it-simple/index.html'), 'utf8');
