@@ -1,8 +1,6 @@
 {
   "name": "Ashwat Kumar Singh",
   "description": "Ashwat Kumar Singh — DevOps and Platform Engineer at Amadeus Labs. Kubernetes, GitOps, observability, and open source.",
-  "intro": "I’m Ashwat, a DevOps and Platform Engineer at Amadeus Labs in Bengaluru. I work on Kubernetes, GitOps, and observability, making the path from code push to deployment faster and more reliable.",
-  "about": "I own development platform reliability, from CI/CD pipelines and Artifactory storage to repository migrations and developer tooling. I enjoy reducing developer friction through reliable infrastructure, secure runbooks, and practical automation. Outside my work at Amadeus, I contribute to Lima VM and explore container internals and self-hosted Kubernetes.",
   "links": {
     "email": "ashwatpas@gmail.com",
     "phone": "+91 7759968585",
@@ -21,7 +19,6 @@
       "url": ""
     }
   ],
-  "role": "DevOps & Platform Engineer",
   "education": {
     "institution": "Indian Institute of Technology (BHU), Varanasi",
     "degree": "Bachelor of Technology",
@@ -81,8 +78,24 @@
       "contributionsUrl": "https://github.com/lima-vm/lima/pulls?q=is%3Apr+is%3Amerged+author%3Aashwat287"
     }
   ],
-  "interests": "I’m interested in container internals, self-hosted Kubernetes, and open source. I like exploring how infrastructure works underneath, and finding practical ways to make development platforms simpler and more reliable.",
-  "bio": "I’m Ashwat, a DevOps and Platform Engineer based in Bengaluru. At Amadeus Labs, I work on making development platforms faster, simpler, and more reliable. Away from work, I contribute to open source and explore container internals and self-hosted Kubernetes. This is my little corner of the web for the things I build, the moments I collect, and the books I read.",
+  "bio": [
+    {
+      "lead": "👋 Hi, I’m Ashwat.",
+      "text": "I’m a DevOps and Platform Engineer based in Bengaluru, India. At Amadeus Labs, I work on making development platforms faster, simpler, and more reliable, so that engineers spend their time shipping 🚀 instead of fighting their tooling. Kubernetes, CI/CD, GitOps, and observability are my everyday toolkit, and I like a pipeline that’s boring in the best possible way."
+    },
+    {
+      "lead": "🧪 Away from the keyboard (well, mostly)",
+      "text": "My curiosity doesn’t clock out at 6 PM. I build side projects, break and rebuild things on my homelab just to see what happens, and contribute to open source 💜. Building complex systems is my favorite rabbit hole, and I’ve never come back from one empty-handed."
+    },
+    {
+      "lead": "🌴 Off the grid",
+      "text": "When I’m not debugging, you’ll find me with a good book 📚, on a football pitch ⚽, or doing laps in a pool 🏊. I also travel ✈️ whenever I can, because the best ideas tend to show up somewhere between a train window and a new city."
+    },
+    {
+      "lead": "",
+      "text": "This is my little corner of the web for the things I build, the moments I collect, and the books I read. Stick around 😄"
+    }
+  ],
   "portrait": {
     "src": "/images/ashwat-profile.png",
     "alt": "Portrait of Ashwat Kumar Singh"
@@ -163,25 +176,69 @@
     }
   ],
   "library": {
-    "sample": true,
+    "sample": false,
     "currentlyReading": [
       {
-        "title": "Frankenstein",
-        "author": "Mary Shelley"
+        "title": "A Fine Balance",
+        "author": "Rohinton Mistry",
+        "cover": "/images/a-fine-balance-cover.jpg",
+        "coverSource": "https://openlibrary.org/works/OL2980902W"
       }
     ],
     "read": [
       {
-        "title": "Alice’s Adventures in Wonderland",
-        "author": "Lewis Carroll",
-        "favouriteLine": "we’re all mad here. I’m mad. You’re mad.",
-        "quoteSource": "https://www.gutenberg.org/files/11/11-h/11-h.htm"
+        "title": "Stoner",
+        "author": "John Williams",
+        "cover": "/images/stoner-cover.jpg",
+        "coverSource": "https://openlibrary.org/works/OL3511459W"
       },
       {
-        "title": "The Adventures of Sherlock Holmes",
-        "author": "Arthur Conan Doyle",
-        "favouriteLine": "You see, but you do not observe.",
-        "quoteSource": "https://www.gutenberg.org/files/1661/1661-h/1661-h.htm"
+        "title": "Mother Mary Comes to Me",
+        "author": "Arundhati Roy",
+        "cover": "/images/mother-mary-comes-to-me-cover.jpg",
+        "coverSource": "https://openlibrary.org/works/OL42542753W"
+      },
+      {
+        "title": "Madonna in a Fur Coat",
+        "author": "Sabahattin Ali",
+        "cover": "/images/madonna-in-a-fur-coat-cover.jpg",
+        "coverSource": "https://openlibrary.org/works/OL21145161W"
+      },
+      {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee",
+        "cover": "/images/to-kill-a-mockingbird-cover.jpg",
+        "coverSource": "https://openlibrary.org/works/OL3140822W"
+      },
+      {
+        "title": "The God of Small Things",
+        "author": "Arundhati Roy",
+        "cover": "/images/the-god-of-small-things-cover.jpg",
+        "coverSource": "https://openlibrary.org/works/OL1052133W"
+      },
+      {
+        "title": "Fahrenheit 451",
+        "author": "Ray Bradbury",
+        "cover": "/images/fahrenheit-451-cover.jpg",
+        "coverSource": "https://openlibrary.org/works/OL103123W"
+      },
+      {
+        "title": "Animal Farm",
+        "author": "George Orwell",
+        "cover": "/images/animal-farm-cover.jpg",
+        "coverSource": "https://openlibrary.org/works/OL1168007W"
+      },
+      {
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "cover": "/images/the-great-gatsby-cover.jpg",
+        "coverSource": "https://openlibrary.org/works/OL468431W"
+      },
+      {
+        "title": "The Stranger",
+        "author": "Albert Camus",
+        "cover": "/images/the-stranger-cover.jpg",
+        "coverSource": "https://openlibrary.org/works/OL1230613W"
       }
     ]
   }

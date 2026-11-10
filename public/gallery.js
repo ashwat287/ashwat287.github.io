@@ -1,9 +1,16 @@
 window.addEventListener('pageshow', () => {
-  const galleries = [...document.querySelectorAll('.life-section .life-gallery')];
-  const photos = galleries.flatMap(gallery => [...gallery.children]);
-  for (let i = photos.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [photos[i], photos[j]] = [photos[j], photos[i]];
+  const shuffle = (shelves, previewCount) => {
+    const items = shelves.flatMap(shelf => [...shelf.children]);
+    for (let index = items.length - 1; index > 0; index--) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [items[index], items[randomIndex]] = [items[randomIndex], items[index]];
+    }
+    items.forEach((item, index) => shelves[index < previewCount ? 0 : 1].append(item));
+  };
+
+  shuffle([...document.querySelectorAll('.life-section .life-gallery')], 3);
+  const bookShelves = [...document.querySelectorAll('.books-read .book-list')];
+  if (bookShelves.length > 1) {
+    shuffle(bookShelves, 4);
   }
-  photos.forEach((photo, index) => galleries[index < 3 ? 0 : 1].append(photo));
 });
