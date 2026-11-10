@@ -66,7 +66,7 @@ await cp(new URL('public/', root), new URL('dist/', root), { recursive: true });
 const home = `
 <section class="about-intro" aria-labelledby="about-heading">
 <div><h1 class="section-heading" id="about-heading">A little about me</h1><p class="bio">${escape(site.bio)}</p></div>
-<figure class="portrait">${site.portrait.src ? `<img src="${escape(site.portrait.src)}" alt="${escape(site.portrait.alt)}" width="400" height="500" fetchpriority="high">` : '<div class="photo-placeholder"><span class="placeholder-mark" aria-hidden="true">A.</span><span>Portrait coming soon</span></div>'}</figure>
+<figure class="portrait">${site.portrait.src ? `<img src="${escape(site.portrait.src)}" alt="${escape(site.portrait.alt)}" width="800" height="800" fetchpriority="high">` : '<div class="photo-placeholder"><span class="placeholder-mark" aria-hidden="true">A.</span><span>Portrait coming soon</span></div>'}</figure>
 </section>
 <section class="life-section" aria-labelledby="life-heading"><h2 class="section-heading" id="life-heading">A glimpse into my life</h2>
 <div class="life-gallery">${site.lifePhotos.length ? site.lifePhotos.map(photo => `<figure><img src="${escape(photo.src)}" alt="${escape(photo.alt)}" loading="lazy" width="600" height="450">${photo.caption ? `<figcaption>${escape(photo.caption)}</figcaption>` : ''}</figure>`).join('') : ['01', '02', '03'].map(number => `<div class="photo-placeholder life-placeholder"><span class="placeholder-number" aria-hidden="true">${number}</span><span>Photo coming soon</span></div>`).join('')}</div></section>

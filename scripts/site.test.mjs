@@ -61,7 +61,10 @@ test('personal details, icon contacts, and experience pages are published', asyn
 test('home has a paragraph bio, photo spaces, and an organized sample library', async () => {
   const home = await readFile(join(output, 'index.html'), 'utf8');
   assert.match(home, /<p class="bio">I’m Ashwat/);
-  assert.match(home, /Portrait coming soon/);
+  assert.match(home, /src="\/images\/ashwat-profile.png" alt="Portrait of Ashwat Kumar Singh"/);
+  assert.doesNotMatch(home, /Portrait coming soon/);
+  const portrait = await readFile(join(output, 'images/ashwat-profile.png'));
+  assert.equal(portrait.subarray(1, 4).toString(), 'PNG');
   assert.match(home, /A glimpse into my life/);
   assert.equal((home.match(/Photo coming soon/g) || []).length, 3);
   assert.match(home, /My little library/);

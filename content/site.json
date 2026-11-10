@@ -84,8 +84,8 @@
   "interests": "I’m interested in container internals, self-hosted Kubernetes, and open source. I like exploring how infrastructure works underneath, and finding practical ways to make development platforms simpler and more reliable.",
   "bio": "I’m Ashwat, a DevOps and Platform Engineer based in Bengaluru. At Amadeus Labs, I work on making development platforms faster, simpler, and more reliable. Away from work, I contribute to open source and explore container internals and self-hosted Kubernetes. This is my little corner of the web for the things I build, the moments I collect, and the books I read.",
   "portrait": {
-    "src": "",
-    "alt": "Ashwat Kumar Singh"
+    "src": "/images/ashwat-profile.png",
+    "alt": "Portrait of Ashwat Kumar Singh"
   },
   "lifePhotos": [],
   "library": {
