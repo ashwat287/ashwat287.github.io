@@ -1,0 +1,35 @@
+{
+  "name": "Your name",
+  "description": "A software engineer’s personal notebook. Writing, projects, and things learned along the way.",
+  "intro": "I’m a software engineer. This is a place for things I build, things I learn, and ideas I want to explore.",
+  "about": "This notebook is a small home for my work and writing on the web. I’ll share notes on software, side projects, and the occasional detour along the way.",
+  "links": {
+    "github": "",
+    "linkedin": "",
+    "email": ""
+  },
+  "projects": [
+    {
+      "name": "This little website",
+      "description": "A personal notebook inspired by the simplicity of the early web. Static pages, Markdown posts, and a little CSS.",
+      "url": "",
+      "label": "Source code"
+    }
+  ],
+  "posts": [
+    {
+      "slug": "a-place-for-small-things",
+      "title": "A place for small things",
+      "date": "2026-11-10",
+      "excerpt": "A small corner of the internet for code, notes, and ideas. A sample post to show how this notebook works.",
+      "sample": true
+    },
+    {
+      "slug": "keeping-it-simple",
+      "title": "Keeping it simple",
+      "date": "2026-11-09",
+      "excerpt": "Some notes on building a personal site with fewer moving parts. A second sample post, ready to replace with your own writing.",
+      "sample": true
+    }
+  ]
+}
