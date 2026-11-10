@@ -101,13 +101,13 @@ test('home has a paragraph bio, photo spaces, and an organized sample library', 
   assert.equal(portrait.subarray(1, 4).toString(), 'PNG');
   assert.match(home, /A glimpse into my life/);
   assert.doesNotMatch(home, /Photo coming soon/);
-  assert.equal((home.match(/class="gallery-photo/g) || []).length, 10);
+  assert.equal((home.match(/class="gallery-photo/g) || []).length, 12);
   const gallery = home.split('<section class="life-section"')[1].split('</section>')[0];
   const [preview, expanded] = gallery.split('<details class="gallery-expansion">');
   assert.equal((preview.match(/class="gallery-photo/g) || []).length, 3);
-  assert.equal((expanded.match(/class="gallery-photo/g) || []).length, 7);
+  assert.equal((expanded.match(/class="gallery-photo/g) || []).length, 9);
   assert.doesNotMatch(gallery, /<a\b|<details[^>]*\bopen\b/);
-  assert.match(expanded, /Show all 10 photos/);
+  assert.match(expanded, /Show all 12 photos/);
   assert.match(expanded, /Show fewer photos/);
   const site = JSON.parse(await readFile('content/site.json', 'utf8'));
   for (const photo of site.lifePhotos) {
