@@ -17,9 +17,9 @@ Open http://localhost:3000. After editing content or styles, stop the server and
 
 Edit `content/site.json`:
 
-- Update your name, role, introduction, description, and about text.
+- Update your name, role, introduction, description, about text, and interests. The home page contains only your bio, interests, and header contact icons.
 - Update your GitHub and LinkedIn URLs, email address, and phone number. Empty links are hidden; populated links appear as accessible icons in the header.
-- Edit `work` and `openSource` for the separate Work experience and Open source pages, and `education` for the home page.
+- Edit `work` and `openSource` for the separate Work experience and Open source pages, and `education` for the Education page.
 - Add projects with a name, description, optional full HTTP(S) URL, and link label.
 - Replace or remove the two sample post entries and Markdown files. They are visibly labeled as examples.
 
@@ -46,6 +46,6 @@ npm test
 npm run build
 ```
 
-Deploy the generated `dist/` directory on a static host at the domain root. It contains the home page, work and open source pages, article pages, stylesheet, favicon, and a `404.html` error page. Configure your host to serve `404.html` for unknown paths; do not use an SPA fallback.
+Deploy the generated `dist/` directory on a static host at the domain root. It contains the About home page, Writing, Projects, Work experience, Open source, Education, and article pages, stylesheet, favicon, and a `404.html` error page. Configure your host to serve `404.html` for unknown paths; do not use an SPA fallback.
 
 The Sites project identifier is in `.openai/hosting.json`. Personal details and professional history come from the supplied résumé. The two writing samples remain clearly labeled; replace them when ready to publish your own posts. Project source links are omitted until their repository URLs are provided.

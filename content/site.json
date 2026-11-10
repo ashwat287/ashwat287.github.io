@@ -96,5 +96,6 @@
       "url": "https://github.com/lima-vm/lima",
       "contributionsUrl": "https://github.com/lima-vm/lima/pulls?q=is%3Apr+is%3Amerged+author%3Aashwat287"
     }
-  ]
+  ],
+  "interests": "I’m interested in container internals, self-hosted Kubernetes, and open source. I like exploring how infrastructure works underneath, and finding practical ways to make development platforms simpler and more reliable."
 }

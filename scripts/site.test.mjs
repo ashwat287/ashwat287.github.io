@@ -34,9 +34,18 @@ test('personal details, icon contacts, and experience pages are published', asyn
   assert.match(home, /aria-label="GitHub: https:\/\/github.com\/ashwat287"/);
   assert.match(home, /aria-label="LinkedIn:/);
   assert.equal((home.match(/<svg /g) || []).length, 4);
-  assert.match(home, /Minicontainer/);
-  assert.match(home, /Homelab Kubernetes Platform/);
-  assert.match(home, /Indian Institute of Technology/);
+  assert.match(home, /<title>About me/);
+  assert.match(home, /id="interests-heading"/);
+  assert.match(home, /container internals, self-hosted Kubernetes/);
+  assert.doesNotMatch(home, /Minicontainer|Homelab Kubernetes Platform|Indian Institute of Technology|Sample post|post-preview|GitOps &amp; deployments/);
+  const projects = await readFile(join(output, 'projects/index.html'), 'utf8');
+  assert.match(projects, /Minicontainer/);
+  assert.match(projects, /Homelab Kubernetes Platform/);
+  const education = await readFile(join(output, 'education/index.html'), 'utf8');
+  assert.match(education, /Indian Institute of Technology/);
+  for (const [slug, html] of [['', home], ['projects', projects], ['education', education]]) {
+    assert.ok(html.includes(`href="/${slug ? `${slug}/` : ''}" aria-current="page"`));
+  }
   assert.doesNotMatch(home, /Your name|Contact details coming soon|>Skills</);
   const work = await readFile(join(output, 'work/index.html'), 'utf8');
   assert.match(work, /href="\/work\/" aria-current="page"/);
@@ -54,6 +63,8 @@ test('Markdown renders into readable article HTML and samples are labeled', asyn
   assert.match(html, /<h2>A small publishing routine<\/h2>/);
   assert.match(html, /<pre><code class="language-sh">/);
   assert.match(html, /This is sample writing/);
-  const home = await readFile(join(output, 'index.html'), 'utf8');
-  assert.ok(home.indexOf('a-place-for-small-things') < home.indexOf('keeping-it-simple'));
+  const writing = await readFile(join(output, 'writing/index.html'), 'utf8');
+  assert.ok(writing.indexOf('a-place-for-small-things') < writing.indexOf('keeping-it-simple'));
+  assert.match(writing, /href="\/writing\/" aria-current="page"/);
+  assert.match(html, /href="\/writing\/">← All writing/);
 });
