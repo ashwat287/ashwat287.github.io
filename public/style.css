@@ -15,7 +15,6 @@ nav a[aria-current="page"] { color: var(--ink); text-decoration-thickness: 2px; 
 .eyebrow, .meta { color: var(--muted); font-size: 12px; }
 .eyebrow { margin: 0 0 12px; }
 .about-intro { display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 36px; align-items: center; margin: 40px 0 56px; }
-.about-intro h1 { font-size: 32px; margin: 0 0 18px; letter-spacing: -.5px; }
 .bio { margin: 0; }
 figure { margin: 0; }
 .portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 3px; }

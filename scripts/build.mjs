@@ -75,7 +75,7 @@ await mkdir(new URL('dist/', root), { recursive: true });
 await cp(new URL('public/', root), new URL('dist/', root), { recursive: true });
 const home = `
 <section class="about-intro" aria-labelledby="about-heading">
-<div><p class="eyebrow">${escape(site.role)}</p><h1 id="about-heading">A little about me</h1><p class="bio">${escape(site.bio)}</p></div>
+<div><h1 class="section-heading" id="about-heading">A little about me</h1><p class="bio">${escape(site.bio)}</p></div>
 <figure class="portrait">${site.portrait.src ? `<img src="${escape(site.portrait.src)}" alt="${escape(site.portrait.alt)}" width="400" height="500" fetchpriority="high">` : '<div class="photo-placeholder"><span class="placeholder-mark" aria-hidden="true">A.</span><span>Portrait coming soon</span></div>'}</figure>
 </section>
 <section class="life-section" aria-labelledby="life-heading"><h2 class="section-heading" id="life-heading">A glimpse into my life</h2>
