@@ -21,8 +21,12 @@ figure { margin: 0; }
 .photo-placeholder { background: #f1f0e9; border: 1px solid var(--rule); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--muted); font-size: 11px; text-align: center; padding: 14px; }
 .portrait .photo-placeholder { aspect-ratio: 4 / 5; border-radius: 3px; }
 .placeholder-mark { font-family: Georgia, serif; font-size: 64px; color: #aaa99d; }
-.life-gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.life-gallery img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2px; }
+.life-gallery { columns: 3; column-gap: 16px; }
+.life-gallery figure { break-inside: avoid; margin: 0 0 16px; }
+.gallery-photo { display: block; border-radius: 2px; overflow: hidden; }
+.life-gallery img { display: block; width: 100%; height: auto; }
+.rotate-photo { position: relative; }
+.rotate-photo img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-90deg); max-width: none; }
 .life-placeholder { aspect-ratio: 4 / 3; }
 .placeholder-number { font-size: 22px; font-family: Georgia, serif; color: #aaa99d; }
 figcaption { margin-top: 10px; color: var(--muted); font-size: 11px; line-height: 1.5; }
@@ -78,7 +82,8 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
   nav { gap: 12px 20px; }
   .about-intro { grid-template-columns: minmax(0, 1fr); gap: 24px; margin-top: 28px; }
   .portrait { width: 160px; }
-  .life-gallery { grid-template-columns: 1fr; gap: 24px; }
+  .life-gallery { columns: 2; column-gap: 12px; }
+  .life-gallery figure { margin-bottom: 12px; }
   .library-columns { grid-template-columns: 1fr; gap: 32px; }
   .reading-now { border-right: 0; border-bottom: 1px solid var(--rule); padding: 0 0 28px; }
 }

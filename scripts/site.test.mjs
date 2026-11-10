@@ -66,7 +66,17 @@ test('home has a paragraph bio, photo spaces, and an organized sample library', 
   const portrait = await readFile(join(output, 'images/ashwat-profile.png'));
   assert.equal(portrait.subarray(1, 4).toString(), 'PNG');
   assert.match(home, /A glimpse into my life/);
-  assert.equal((home.match(/Photo coming soon/g) || []).length, 3);
+  assert.doesNotMatch(home, /Photo coming soon/);
+  assert.equal((home.match(/class="gallery-photo/g) || []).length, 10);
+  const site = JSON.parse(await readFile('content/site.json', 'utf8'));
+  for (const photo of site.lifePhotos) {
+    assert.ok(home.includes(`src="${photo.src}"`));
+    assert.ok(home.includes(`alt="${photo.alt}"`));
+    const data = await readFile(join(output, photo.src));
+    assert.equal(data.subarray(1, 4).toString(), 'PNG');
+    assert.equal(data.readUInt32BE(16), photo.width);
+    assert.equal(data.readUInt32BE(20), photo.height);
+  }
   assert.match(home, /My little library/);
   assert.match(home, /Currently reading/);
   assert.match(home, /Books I’ve read/);

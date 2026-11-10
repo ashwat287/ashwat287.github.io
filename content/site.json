@@ -87,7 +87,69 @@
     "src": "/images/ashwat-profile.png",
     "alt": "Portrait of Ashwat Kumar Singh"
   },
-  "lifePhotos": [],
+  "lifePhotos": [
+    {
+      "src": "/images/mountains-and-blossoms.png",
+      "alt": "Pink blossoms above a forest and snow-covered mountain ridge",
+      "width": 870,
+      "height": 1420,
+      "rotate": true
+    },
+    {
+      "src": "/images/umbrellas-at-dusk.png",
+      "alt": "Colourful umbrellas suspended above domes and minarets at dusk",
+      "width": 854,
+      "height": 1352
+    },
+    {
+      "src": "/images/rainy-courtyard.png",
+      "alt": "A rain-soaked path through a green courtyard",
+      "width": 882,
+      "height": 1356
+    },
+    {
+      "src": "/images/banaras-at-night.png",
+      "alt": "An aerial view of Banaras illuminated at night",
+      "width": 878,
+      "height": 1284
+    },
+    {
+      "src": "/images/riverside-evening.png",
+      "alt": "Boats beside riverside ghats under an evening sky",
+      "width": 872,
+      "height": 1366
+    },
+    {
+      "src": "/images/kayaks-by-the-water.png",
+      "alt": "Colourful kayaks beside a palm-lined river",
+      "width": 774,
+      "height": 1252
+    },
+    {
+      "src": "/images/surfing-day.png",
+      "alt": "A surfer holding a board on a sunny palm-lined beach",
+      "width": 834,
+      "height": 1304
+    },
+    {
+      "src": "/images/waterfall-hike.png",
+      "alt": "A hiker standing beside a waterfall between tall rocks",
+      "width": 1072,
+      "height": 1420
+    },
+    {
+      "src": "/images/above-the-clouds.png",
+      "alt": "An orange horizon above a sea of clouds and mountain silhouettes",
+      "width": 1068,
+      "height": 1118
+    },
+    {
+      "src": "/images/football-evening.png",
+      "alt": "Ashwat wearing a number 3 jersey on a football field at night",
+      "width": 1134,
+      "height": 1506
+    }
+  ],
   "library": {
     "sample": true,
     "currentlyReading": [
