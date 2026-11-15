@@ -95,7 +95,9 @@ test('personal details, icon contacts, and experience pages are published', asyn
   assert.doesNotMatch(home, /Minicontainer|Homelab Kubernetes Platform|Indian Institute of Technology|Sample post|post-preview|GitOps &amp; deployments/);
   const projects = await readFile(join(outputDirectory, 'projects/index.html'), 'utf8');
   assert.match(projects, /Minicontainer/);
-  assert.match(projects, /Homelab Kubernetes Platform/);
+  assert.match(projects, /modelGauge/);
+  assert.match(projects, /href="https:\/\/github.com\/ashwat287\/modelGauge"/);
+  assert.doesNotMatch(projects, /Homelab Kubernetes Platform/);
   const education = await readFile(join(outputDirectory, 'education/index.html'), 'utf8');
   assert.match(education, /Indian Institute of Technology/);
   for (const [slug, html] of [['', home], ['projects', projects], ['education', education]]) {
