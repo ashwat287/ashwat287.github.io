@@ -195,9 +195,11 @@ ${sampleNote}
 function renderProjects() {
   const projects = site.projects.map(project => `
 <article class="project">
+<div class="project-heading">
 <h2>${escapeHtml(project.name)}</h2>
-<p>${escapeHtml(project.description)}</p>
 ${project.url ? `<a class="read-more" href="${externalHref(project.url)}">${escapeHtml(project.label || 'View project')} →</a>` : ''}
+</div>
+${project.description.split(/\n\s*\n/).map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('\n')}
 </article>`).join('');
   return `<div class="article"><h1>Projects</h1>${projects}</div>`;
 }
