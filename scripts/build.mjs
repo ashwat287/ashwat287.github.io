@@ -236,7 +236,6 @@ function renderOpenSource() {
 <section class="experience">
 <h2><a href="${externalHref(project.url)}">${escapeHtml(project.name)}</a></h2>
 <p class="position">${escapeHtml(project.role)}</p>
-<p class="meta">${escapeHtml(project.dates)}</p>
 <p>${escapeHtml(project.description)}</p>
 <a class="read-more" href="${externalHref(project.contributionsUrl)}">View merged contributions →</a>
 </section>`).join('');
