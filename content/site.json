@@ -192,6 +192,18 @@
     ],
     "read": [
       {
+        "title": "A Long Petal of the Sea",
+        "author": "Isabel Allende",
+        "cover": "/images/a-long-petal-of-the-sea-cover.jpg",
+        "coverSource": "https://openlibrary.org/isbn/9780593157497"
+      },
+      {
+        "title": "White Nights",
+        "author": "Fyodor Dostoevsky",
+        "cover": "/images/white-nights-cover.jpg",
+        "coverSource": "https://openlibrary.org/works/OL36196411W"
+      },
+      {
         "title": "Stoner",
         "author": "John Williams",
         "cover": "/images/stoner-cover.jpg",

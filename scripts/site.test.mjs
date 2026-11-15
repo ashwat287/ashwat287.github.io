@@ -149,14 +149,14 @@ test('home has a paragraph bio, photo spaces, and the personal library', async (
   assert.match(home, /Books I’ve read/);
   assert.equal(site.library.sample, false);
   assert.equal(site.library.currentlyReading.length, 1);
-  assert.equal(site.library.read.length, 9);
+  assert.equal(site.library.read.length, 11);
   assert.match(home, /A Fine Balance/);
   assert.match(home, /Rohinton Mistry/);
   const readShelf = home.split('<section class="books-read"')[1].split('</section>')[0];
   const [bookPreview, bookExpansion] = readShelf.split('<details class="book-expansion">');
   assert.equal((bookPreview.match(/class="book"/g) || []).length, 4);
-  assert.equal((bookExpansion.match(/class="book"/g) || []).length, 5);
-  assert.match(bookExpansion, /Show all 9 books/);
+  assert.equal((bookExpansion.match(/class="book"/g) || []).length, 7);
+  assert.match(bookExpansion, /Show all 11 books/);
   assert.match(bookExpansion, /Show fewer books/);
   assert.doesNotMatch(bookExpansion, /<details[^>]*\bopen\b/);
   for (const book of [...site.library.currentlyReading, ...site.library.read]) {
