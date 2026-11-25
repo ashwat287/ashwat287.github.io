@@ -138,11 +138,11 @@ test('home has a paragraph bio, photo spaces, and the personal library', async (
   assert.match(home, /<strong>[^<]*Away from the keyboard \(well, mostly\)<\/strong>/);
   assert.match(home, /<strong>[^<]*Off the grid<\/strong>/);
   assert.match(home, /This is my little corner of the web/);
-  assert.match(home, /src="\/images\/ashwat-profile\.jpg" alt="Portrait of Ashwat Kumar Singh"/);
+  assert.match(home, /src="\/images\/ashwat-profile\.png" alt="Portrait of Ashwat Kumar Singh"/);
   assert.doesNotMatch(home, /Portrait coming soon/);
-  const portrait = await readFile(join(outputDirectory, 'images/ashwat-profile.jpg'));
-  assert.equal(portrait[0], 0xff);
-  assert.equal(portrait[1], 0xd8);
+  const portrait = await readFile(join(outputDirectory, 'images/ashwat-profile.png'));
+  assert.equal(portrait[0], 0x89);
+  assert.equal(portrait[1], 0x50);
   assert.match(home, /A glimpse into my life/);
   assert.doesNotMatch(home, /Photo coming soon/);
   assert.equal((home.match(/class="gallery-photo/g) || []).length, 12);
