@@ -1,6 +1,8 @@
 # Personal Notebook
 
-A static personal website built with Node.js. It includes an About page, project and experience pages, a photo gallery, and a book shelf.
+A static personal website built with Node.js. It includes an About page, project and blog pages, experience pages, a photo gallery, and a book shelf.
+
+Add blog posts to the `blogs` array in `content/site.json`, with a `slug`, `title`, `date`, `description`, and matching Markdown file under `content/blogs/`.
 
 ## Run locally
 
@@ -12,12 +14,6 @@ npm run dev
 ```
 
 Open http://localhost:3000. Restart the command after changing content or styles to rebuild the site.
-
-## Edit content
-
-- Update site text, links, work, projects, photos, and books in `content/site.json`.
-- Put images in `public/images/` and reference them with paths such as `/images/portrait.jpg`.
-- Update styles in `public/style.css`.
 
 ## Verify and build
 

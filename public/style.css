@@ -70,6 +70,21 @@ section { margin-bottom: 52px; }
 .project { margin-bottom: 25px; }
 .project h3 { font-size: 24px; margin: 0 0 8px; }
 .project p { margin: 0 0 9px; }
+.article .blog-post { margin: 22px 0 24px; }
+.article .blog-post h2 { margin: 0 0 4px; font-size: 22px; }
+.article .blog-post p { margin: 4px 0; }
+.article .blog-post .meta { margin: 0 0 4px; }
+.back-to-blogs { display: inline-block; margin-bottom: 8px; padding: 7px 11px; border: 1px solid var(--rule); color: var(--muted); font-size: 12px; text-decoration: none; }
+.back-to-blogs:hover { border-color: var(--muted); color: var(--ink); }
+.blog-article h1 { margin-bottom: 12px; }
+.blog-article h2 { margin-top: 40px; }
+.blog-image { text-align: center; }
+.blog-image img { display: block; width: 100%; }
+.table-wrap { overflow-x: auto; margin: 24px 0; }
+.table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.table-wrap th, .table-wrap td { padding: 8px 12px; border: 1px solid var(--rule); text-align: left; }
+.table-wrap th { white-space: nowrap; }
+.blog-article pre { overflow-x: auto; padding: 16px; background: #f5f4ee; font-size: 12px; line-height: 1.6; }
 .contact { display: flex; gap: 2px; }
 .contact a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; color: var(--muted); }
 .contact a:hover { color: var(--ink); }

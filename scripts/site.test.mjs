@@ -91,6 +91,8 @@ test('personal details, icon contacts, and experience pages are published', asyn
   assert.match(home, /<title>About me/);
   assert.match(home, /id="about-heading"/);
   assert.ok(home.indexOf('Work experience</a>') < home.indexOf('Projects</a>'));
+  assert.ok(home.indexOf('Projects</a>') < home.indexOf('Blogs</a>'));
+  assert.ok(home.indexOf('Blogs</a>') < home.indexOf('Open source</a>'));
   assert.match(home, /spend their time shipping/);
   assert.doesNotMatch(home, /Minicontainer|Homelab Kubernetes Platform|Indian Institute of Technology|Sample post|post-preview|GitOps &amp; deployments/);
   const projects = await readFile(join(outputDirectory, 'projects/index.html'), 'utf8');
@@ -98,9 +100,24 @@ test('personal details, icon contacts, and experience pages are published', asyn
   assert.match(projects, /modelGauge/);
   assert.match(projects, /href="https:\/\/github.com\/ashwat287\/modelGauge"/);
   assert.doesNotMatch(projects, /Homelab Kubernetes Platform/);
+  const blogs = await readFile(join(outputDirectory, 'blogs/index.html'), 'utf8');
+  assert.match(blogs, /<h1>Blogs<\/h1>/);
+  assert.match(blogs, /I Wanted to Know What My Old MacBook Air Could Do with AI/);
+  assert.match(blogs, /href="\/blogs\/what-my-old-macbook-air-could-do-with-ai\/"/);
+  assert.match(blogs, /href="\/blogs\/" aria-current="page"/);
+  const blog = await readFile(join(outputDirectory, 'blogs/what-my-old-macbook-air-could-do-with-ai/index.html'), 'utf8');
+  assert.match(blog, /href="\/blogs\/" aria-current="page"/);
+  assert.match(blog, /<a class="back-to-blogs" href="\/blogs\/">← Back to all blogs<\/a>/);
+  assert.match(blog, /<h2>Why I started<\/h2>/);
+  assert.ok(blog.indexOf('src="/images/modelgauge-macbook.jpg"') < blog.indexOf('<h2>Why I started</h2>'));
+  await stat(join(outputDirectory, 'images/modelgauge-macbook.jpg'));
+  assert.match(blog, /<table>/);
+  assert.match(blog, /<pre><code>/);
+  assert.match(blog, /grafana-throughput\.png/);
+  assert.match(blog, /https:\/\/github\.com\/ashwat287\/modelGauge/);
   const education = await readFile(join(outputDirectory, 'education/index.html'), 'utf8');
   assert.match(education, /Indian Institute of Technology/);
-  for (const [slug, html] of [['', home], ['projects', projects], ['education', education]]) {
+  for (const [slug, html] of [['', home], ['projects', projects], ['blogs', blogs], ['education', education]]) {
     assert.ok(html.includes(`href="/${slug ? `${slug}/` : ''}" aria-current="page"`));
   }
   assert.doesNotMatch(home, /Your name|Contact details coming soon|>Skills</);

@@ -24,6 +24,15 @@
       "url": "https://github.com/ashwat287/Document-Processing-Agent-Service"
     }
   ],
+  "blogs": [
+    {
+      "slug": "what-my-old-macbook-air-could-do-with-ai",
+      "title": "I Wanted to Know What My Old MacBook Air Could Do with AI, So I Built ModelGauge",
+      "date": "November 25, 2026",
+      "description": "An old MacBook Air and a small tool for asking the same questions of your own hardware.",
+      "content": "blogs/what-my-old-macbook-air-could-do-with-ai.md"
+    }
+  ],
   "education": {
     "institution": "Indian Institute of Technology (BHU), Varanasi",
     "degree": "Bachelor of Technology",

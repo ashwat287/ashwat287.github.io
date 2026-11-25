@@ -104,6 +104,7 @@ function renderPage(title, description, body, activePage = null) {
     ['', 'About'],
     ['work', 'Work experience'],
     ['projects', 'Projects'],
+    ['blogs', 'Blogs'],
     ['open-source', 'Open source'],
     ['education', 'Education']
   ];
@@ -204,6 +205,145 @@ ${project.description.split(/\n\s*\n/).map(paragraph => `<p>${escapeHtml(paragra
   return `<div class="article"><h1>Projects</h1>${projects}</div>`;
 }
 
+function renderBlogs() {
+  if (!site.blogs.length) {
+    return '<div class="article"><h1>Blogs</h1><p class="empty-note">No blog posts yet. New posts will appear here.</p></div>';
+  }
+  const blogs = site.blogs.map(blog => {
+    return `<article class="blog-post">
+<h2><a href="/blogs/${escapeHtml(blog.slug)}/">${escapeHtml(blog.title)}</a></h2>
+<p class="meta">${escapeHtml(blog.date)}</p>
+<p>${escapeHtml(blog.description)}</p>
+</article>`;
+  }).join('');
+  return `<div class="article"><h1>Blogs</h1>${blogs}</div>`;
+}
+
+function renderInlineMarkdown(text) {
+  const markdownPattern = /(!?)\[([^\]]+)\]\(([^)\s]+)\)|\*([^*]+)\*/g;
+  let html = '';
+  let previousIndex = 0;
+  for (const match of text.matchAll(markdownPattern)) {
+    html += escapeHtml(text.slice(previousIndex, match.index));
+    if (match[1]) {
+      let source;
+      if (match[3].startsWith('/images/')) {
+        if (!imagePathPattern.test(match[3])) throw new Error(`Invalid local blog image path: ${match[3]}`);
+        source = escapeHtml(match[3]);
+      } else {
+        source = externalHref(match[3]);
+      }
+      html += `<img src="${source}" alt="${escapeHtml(match[2])}" loading="lazy" decoding="async">`;
+    } else if (match[2]) {
+      html += `<a href="${externalHref(match[3])}">${escapeHtml(match[2])}</a>`;
+    } else {
+      html += `<em>${escapeHtml(match[4])}</em>`;
+    }
+    previousIndex = match.index + match[0].length;
+  }
+  return html + escapeHtml(text.slice(previousIndex));
+}
+
+function renderMarkdown(markdown, title) {
+  const lines = markdown.split(/\r?\n/);
+  const html = [];
+  let paragraph = [];
+  let code = [];
+  let inCode = false;
+  let titleSkipped = false;
+
+  const flushParagraph = () => {
+    if (paragraph.length) {
+      html.push(`<p>${renderInlineMarkdown(paragraph.join(' '))}</p>`);
+      paragraph = [];
+    }
+  };
+  const renderTableRow = line =>
+    line.trim().replace(/^\||\|$/g, '').split('|').map(cell => renderInlineMarkdown(cell.trim()));
+
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index];
+    if (line.startsWith('```')) {
+      flushParagraph();
+      if (inCode) {
+        html.push(`<pre><code>${escapeHtml(code.join('\n'))}</code></pre>`);
+        code = [];
+        inCode = false;
+      } else {
+        inCode = true;
+      }
+      continue;
+    }
+    if (inCode) {
+      code.push(line);
+      continue;
+    }
+    if (!titleSkipped && line === `# ${title}`) {
+      titleSkipped = true;
+      flushParagraph();
+      continue;
+    }
+    if (!line.trim()) {
+      flushParagraph();
+      continue;
+    }
+    const heading = line.match(/^#{1,6}\s+(.+)$/);
+    if (heading) {
+      flushParagraph();
+      html.push(`<h2>${renderInlineMarkdown(heading[1])}</h2>`);
+      continue;
+    }
+    if (line.startsWith('![')) {
+      flushParagraph();
+      html.push(`<p class="blog-image">${renderInlineMarkdown(line)}</p>`);
+      continue;
+    }
+    if (index + 1 < lines.length && /^\|?(?:\s*:?-+:?\s*\|)+\s*:?-+:?\s*\|?$/.test(lines[index + 1])) {
+      flushParagraph();
+      const headers = renderTableRow(line);
+      index += 2;
+      const rows = [];
+      while (index < lines.length && lines[index].includes('|') && lines[index].trim()) {
+        rows.push(renderTableRow(lines[index]));
+        index++;
+      }
+      index--;
+      html.push(`<div class="table-wrap"><table><thead><tr>${headers.map(cell => `<th scope="col">${cell}</th>`).join('')}</tr></thead><tbody>${rows.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`);
+      continue;
+    }
+    paragraph.push(line.trim());
+  }
+  flushParagraph();
+  if (inCode) html.push(`<pre><code>${escapeHtml(code.join('\n'))}</code></pre>`);
+  return html.join('\n');
+}
+
+async function renderBlogPage(blog) {
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(blog.slug)) {
+    throw new Error(`Invalid blog slug: ${blog.slug}`);
+  }
+  if (blog.content !== `blogs/${blog.slug}.md`) {
+    throw new Error(`Blog content path must match its slug: ${blog.slug}`);
+  }
+  const markdown = await readFile(new URL(`content/${blog.content}`, root), 'utf8');
+  for (const [, imagePath] of markdown.matchAll(/!\[[^\]]+\]\((\/images\/[^)\s]+)\)/g)) {
+    await validateImage(imagePath, `Blog image in ${blog.slug}`);
+  }
+  const body = `<article class="article blog-article">
+<a class="back-to-blogs" href="/blogs/">← Back to all blogs</a>
+<h1>${escapeHtml(blog.title)}</h1>
+<p class="meta">${escapeHtml(blog.date)}</p>
+${renderMarkdown(markdown, blog.title)}
+</article>`;
+  await writePage(
+    `dist/blogs/${blog.slug}/`,
+    blog.title,
+    blog.description,
+    body,
+    'blogs'
+  );
+}
+
 function renderEducation() {
   const education = site.education;
   return `<div class="article"><h1>Education</h1>
@@ -259,6 +399,7 @@ await writeFile(
 
 const pages = [
   ['projects/', 'Projects', renderProjects()],
+  ['blogs/', 'Blogs', renderBlogs()],
   ['work/', 'Work experience', renderWork()],
   ['open-source/', 'Open source', renderOpenSource()],
   ['education/', 'Education', renderEducation()]
@@ -266,6 +407,7 @@ const pages = [
 for (const [path, title, body] of pages) {
   await writePage(`dist/${path}`, title, `${title} — ${site.name}`, body, path.slice(0, -1));
 }
+for (const blog of site.blogs) await renderBlogPage(blog);
 
 await writeFile(
   new URL('dist/404.html', root),
@@ -275,4 +417,4 @@ await writeFile(
     '<article class="article"><h1>Page not found.</h1><p>This page may have moved, or the address may be incorrect.</p><a href="/">← Return to the notebook</a></article>'
   )
 );
-console.log('Built home, projects, work, open source, education, and 404 pages in dist/.');
+console.log('Built home, projects, blogs, work, open source, education, and 404 pages in dist/.');
